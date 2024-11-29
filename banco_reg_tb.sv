@@ -13,17 +13,6 @@ module banco_reg_tb;
   initial clk = 0;
   always #5 clk = ~clk; // Clock com período de 10 ns
 
-// initial begin
-//   $display("\t\tTempo\twd3\twa3\tra1\trd1\tra2\trd2\treset");
-// end
-
-// initial $display("%t\t%d\t%b\t%b\t%d\t%b\t%d", $time, wd3, wa3, ra1, rd1, ra2, rd2);
-
-// always #10 begin
-//   $display("%t\t%b\t%b\t\t%d\t%b\t\t%d", $time, reset, ra1, rd1, ra2, rd2);
-//   $display("%t\t%d\t%b\t%b\t%d\t%b\t%d\t%b", $time, wd3, wa3, ra1, rd1, ra2, rd2, reset);
-// end
-
 initial begin
   reset = 1;
   #1;
@@ -37,17 +26,15 @@ end
   initial begin
     we3 = 1;
     wd3 = 0;
-    for (int i =0; i < 16; i++) begin
+    for (int i =0; i < 26; i++) begin
       wd3 = wd3 + 10;  
       #10;                    
     end
-    // simu parou em 160ps
-
   end
 
   // Alteração do endereço
   initial begin
-    for (int k = 0; k < 8; k++) begin
+    for (int k = 0; k < 12; k++) begin
       wa3 = k;
       #20;
     end
@@ -68,6 +55,7 @@ end
     end
     ra1 = 0;
     ra2 = 1;
+    we3 = 0;
     while (ra2 < 7) begin
       #10;
       ra1 = ra1 + 2;
@@ -85,7 +73,6 @@ end
       ra1 = ra1 + 2;
       ra2 = ra2 + 2;                 
     end
-    // simu parou em 160ps
 
     $finish();
   end
